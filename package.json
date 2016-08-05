@@ -1,6 +1,6 @@
 {
   "name": "bundl-wrap",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Wrap each bundle with content before and/or after",
   "main": "index.js",
   "scripts": {
