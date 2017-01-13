@@ -23,7 +23,8 @@ var options = {
 
 bundl(targets)
     .then(wrap(options))
-    .then(write());
+    .then(write())
+    .all();
 ```
 
 ## Options
