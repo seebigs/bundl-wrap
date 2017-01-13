@@ -10,10 +10,11 @@ function readFile (filepath, bundl) {
         return fs.readFileSync(filepath);
 
     } catch (err) {
+        var logError = bundl.log ? bundl.log.error : console.log;
         if (err.code === 'ENOENT') {
-            bundl.log.error('Target file not found at ' + filepath, err.stack);
+            logError('Target file not found at ' + filepath, err.stack);
         } else {
-            bundl.log.error(err);
+            logError(err);
         }
 
         return '';
@@ -24,7 +25,7 @@ function readFile (filepath, bundl) {
 module.exports = function (options) {
     options = options || {};
 
-    function wrapEach (contents, r) {
+    function one (contents, r) {
         var bundl = this;
 
         var data = options.data || {};
@@ -41,7 +42,7 @@ module.exports = function (options) {
     }
 
     return {
-        each: wrapEach
+        one: one
     };
 
 };

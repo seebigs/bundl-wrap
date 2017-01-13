@@ -4,7 +4,7 @@
   "description": "Wrap each bundle with content before and/or after",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/automated"
   },
   "repository": {
     "type": "git",
@@ -17,5 +17,8 @@
   },
   "dependencies": {
     "lodash.template": "^4.3.0"
+  },
+  "devDependencies": {
+    "feather-test": "^1.1.0"
   }
 }
