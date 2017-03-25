@@ -24,7 +24,7 @@ var options = {
 bundl(targets)
     .then(wrap(options))
     .then(write())
-    .all();
+    .go();
 ```
 
 ## Options
