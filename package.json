@@ -4,7 +4,7 @@
   "description": "Wrap each bundle with content before and/or after",
   "main": "index.js",
   "scripts": {
-    "test": "node test/automated"
+    "test": "node test"
   },
   "repository": {
     "type": "git",
@@ -16,9 +16,9 @@
     "url": "https://github.com/seebigs/bundl-wrap/issues"
   },
   "dependencies": {
-    "lodash.template": "^4.3.0"
+    "easybars": "^3.0.2"
   },
   "devDependencies": {
-    "feather-test": "^1.1.0"
+    "feather-test": "^4.0.0"
   }
 }

@@ -2,12 +2,12 @@
  * Wrap extension for Bundl
  */
 
-var _template = require('lodash.template');
+var easybars = require('easybars');
 var fs = require('fs');
 
 function readFile (filepath, bundl) {
     try {
-        return fs.readFileSync(filepath);
+        return fs.readFileSync(filepath, 'utf8');
 
     } catch (err) {
         var logError = bundl.log ? bundl.log.error : console.log;
@@ -22,27 +22,42 @@ function readFile (filepath, bundl) {
 }
 
 
-module.exports = function (options) {
-    options = options || {};
+module.exports = function (opt, _data) {
+    var options = {};
 
-    function one (contents, r) {
+    if (typeof opt === 'string') {
+        options.template = opt;
+    } else {
+        Object.assign(options, opt);
+    }
+
+    function wrap (r) {
         var bundl = this;
 
-        var data = options.data || {};
-        data.contents = contents;
+        var data = _data || options.data || {};
+        var str = r.contents.getString();
+        data.___ = str;
 
-        var before = options.before ? _template(options.before)(data) : '';
-        var after = options.after ? _template(options.after)(data) : '';
+        var before = options.before ? easybars(options.before, data) : '';
+        var after = options.after ? easybars(options.after, data) : '';
 
         if (options.file) {
-            contents = _template(readFile(options.file, bundl))(data);
+            options.template = readFile(options.file, bundl);
         }
 
-        return before + contents + after;
+        if (options.template) {
+            str = easybars(options.template, data);
+        }
+
+        r.contents.set(before + str + after);
+
+        return r;
     }
 
     return {
-        one: one
+        name: 'wrap',
+        stage: 'stringy',
+        exec: wrap,
     };
 
 };

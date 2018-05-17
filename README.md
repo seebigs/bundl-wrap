@@ -2,7 +2,7 @@
 
 *Wrap your bundles with a string or template*
 
-*Runs with the amazing [Bundl](https://github.com/seebigs/bundl) build tool*
+*Runs with the amazing [Bundl](https://github.com/seebigs/bundl) build tool and [Easybars](https://github.com/seebigs/easybars) templating*
 
 ## Install
 
@@ -13,7 +13,7 @@ $ npm install --save-dev bundl-wrap
 ## Use
 
 ```js
-var bundl = require('bundl');
+var Bundl = require('bundl');
 var wrap = require('bundl-wrap');
 
 var options = {
@@ -21,7 +21,7 @@ var options = {
     after: ')();'
 };
 
-bundl(targets)
+new Bundl(targets)
     .then(wrap(options))
     .then(write())
     .go();
@@ -38,7 +38,7 @@ Text to come after your content (can use template values)
 ### data
 The data object that will be available to your templates
 
-*Note: "<%= content %>" is a magic value that is always available to your templates, even when no data is passed*
+*Note: "{{___}}" (triple underscore) is a magic value that is always available to your templates, even when no data is passed. It represents the full original contents.*
 
 ### file
 A file path to find a template to pass content through
@@ -52,16 +52,16 @@ var options = {
         direction: 'East',
         exclamation: 'soft'
     },
-    before: 'But <%= exclamation %>, ',
-    after: ', and <%= name %> is the sun.',
+    before: 'But {{exclamation}}, ',
+    after: ', and {{name}} is the sun.',
     file: '../my_template.txt'
 };
 ```
 my_template.txt
 ```
-what light through yonder <%= location %> breaks?
-<%= content %>
-It is the <%= direction %>
+what light through yonder {{location}} breaks?
+{{ ___ }}
+It is the {{direction}}
 ```
 Output:
 ```
